@@ -1,0 +1,55 @@
+#!/bin/python3
+import sys
+from utils import fg, bg, icon, colors, action, creds
+
+def gmail():
+    import imaplib
+    import re
+    _icon = icon("\uf003", "2")
+
+    # Get unread email amount
+    try:
+        i = imaplib.IMAP4_SSL('imap.gmail.com')
+        i.login(*creds.gmail)
+        x, y = i.status('INBOX', '(UNSEEN)')
+        unseen = int(re.search(b'UNSEEN\s+(\d+)', y[0]).group(1))
+        amount = unseen
+    except:
+        amount = 0
+
+    if amount:
+        value = "{} {}".format(_icon, amount)
+    else:
+        value = fg(colors.GREY, "{}".format(_icon))
+
+    return action("google-chrome-stable inbox.google.com", value)
+
+
+def reddit():
+    import praw
+    _icon = icon("\uf281", "2")
+    try:
+        r = praw.Reddit("Lemonbar Notifyer")
+        r.login(*creds.reddit, disable_warning=True)
+        amount = len(list(r.get_unread()))
+    except:
+        amount = 0
+
+    if amount:
+        value = "{} {}".format(_icon, amount)
+    else:
+        value = fg(colors.GREY, "{}".format(_icon))
+
+    return action("google-chrome-stable reddit.com/message/inbox/", value)
+
+
+if __name__ == "__main__":
+    try: 
+        arg = sys.argv[1]
+    except IndexError:
+        print("No service specified")
+    else:
+        if arg == "gmail":
+            print(gmail())
+        if arg == "reddit":
+            print(reddit())

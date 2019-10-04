@@ -1,0 +1,23 @@
+q
+    xte 'key F1'
+
+a
+    xdotool keydown F2
+
+w
+    xdotool key Escape
+
+e
+    xdotool key F4
+
+r
+    xdotool key F5
+
+s
+    xdotool key F12
+
+d
+    xdotool key F10
+
+f
+    xdotool key F6

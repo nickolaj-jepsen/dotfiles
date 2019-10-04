@@ -1,0 +1,4 @@
+rofi.theme: /home/nickolaj/.config/rofi/custom-float.rasi
+rofi.font:  hack 12
+
+rofi.run-command: fish -c '{cmd}'
