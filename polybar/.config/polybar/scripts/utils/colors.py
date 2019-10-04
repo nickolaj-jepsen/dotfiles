@@ -1,0 +1,5 @@
+SUCCESS = "#aaff77"
+DANGER  = "#ff5555"
+WARNING = "#fba922"
+GREY = "#444444"
+WHITE = "#ffffff"

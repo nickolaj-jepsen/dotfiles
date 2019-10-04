@@ -1,0 +1,145 @@
+/**
+ * A floating box version of the paper theme.
+ *
+ * User: Qball
+ * Copyright: Dave Davenport
+ */
+* {
+    foreground:  #C5C5C5;
+    normal-text:  #DDDDDD;
+    fg-text:  #1C1C1C;
+    background: #1C1C1C;
+    background-alt: #161616;
+    focused: #cf6a4c;
+
+    spacing: 2;
+    background-color: #00000000;
+    border-color: @focused;
+    anchor: north;
+    location: center;
+}
+
+#window {
+    transparency: "screenshot";
+    background-color: #00000000;
+    border: 0;
+    padding: 0% 0% 1em 0%;
+    x-offset: 0;
+    y-offset: -15%;
+    
+}
+#mainbox {
+    padding: 0px;
+    border: 0;
+    spacing: 1%;
+}
+#message {
+    border: 2px; 
+    padding: 1em; 
+    background-color: @background; 
+    text-color: @normal-text;
+}
+#textbox normal {
+    text-color: @foreground;
+    padding: 0;
+    border: 0;
+}
+#listview {
+    fixed-height: 1;
+    border: 2px;
+    padding: 1em;
+    reverse: false;
+
+    columns: 1;
+    background-color: @background; 
+}
+#element {
+    border: 0;
+    padding: 2px;
+    highlight: bold ;
+}
+#element normal.normal {
+    text-color: @normal-text;
+    background-color: #F5F5F500;
+}
+#element normal.urgent {
+    text-color: rgb(215, 32, 0);
+    background-color: @background;
+}
+#element normal.active {
+    text-color: @focused;
+    background-color: @background;
+}
+#element selected.normal {
+    text-color: @normal-text;
+    background-color: @focused;
+}
+#element selected.urgent {
+    text-color: @normal-text;
+    background-color: rgb(215, 32, 0);
+}
+#element selected.active {
+    text-color: @normal-text;
+    background-color: @focused;
+}
+#element alternate.normal {
+    text-color: @normal-text;
+    background-color: @background-alt;
+}
+#element alternate.urgent {
+    text-color: rgb(215, 32, 0);
+    background-color: @background-alt;
+}
+#element alternate.active {
+    text-color: @focused;
+    background-color: @background-alt;
+}
+#scrollbar {
+    border: 0;
+    padding: 0;
+}
+#inputbar {
+    spacing: 0;
+    border: 2px;
+    padding: 0.5em 1em;
+    background-color: @background;
+    index: 0;
+}
+#inputbar normal {
+    foreground-color: @normal-text;
+    background-color: @background;
+}
+
+#sidebar {
+    border: 2px;
+    padding: 0.5em 1em;
+    background-color: @background;
+    index: 10;
+}
+#button selected {
+    text-color: #4271AEFF;
+}
+#inputbar {
+    children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
+}
+#prompt {
+    spacing:    0;
+    text-color: @normal-text;
+}
+
+#textbox-prompt-colon {
+    expand:     false;
+    str:        ":";
+    margin:     0px 0.3em 0em 0em ;
+    text-color: @normal-text;
+}
+
+#entry {
+    spacing:    0;
+    text-color: @normal-text;
+}
+
+#case-indicator {
+    spacing:    0;
+    text-color: @normal-text;
+}

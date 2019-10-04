@@ -1,0 +1,236 @@
+#
+# wm independent hotkeys
+#
+
+#------------#
+# Media keys #
+#------------#
+
+XF86AudioRaiseVolume
+	amixer -q -D pulse sset Master 5%+
+
+XF86AudioLowerVolume
+	amixer -q -D pulse sset Master 5%-
+
+XF86AudioMute
+	pactl set-sink-mute 1 toggle
+
+XF86MonBrightnessUp
+    xbacklight -inc 10
+
+XF86MonBrightnessDown
+    xbacklight -dec 10
+
+#------------------#
+# Launchers (Rofi) #
+#------------------#
+
+# Emoji
+super + semicolon 
+    rofi -modi emoji -show emoji -hide-scrollbar
+
+# Calculator
+super + backslash 
+    rofi -modi calc -show calc -hide-scrollbar
+
+# program launcher
+super + space 
+	rofi -show run -hide-scrollbar
+
+# program switcher
+super + q 
+	rofi -show window -hide-scrollbar
+
+#------#
+# Apps #
+#------#
+
+# terminal emulator
+super + Return
+	alacritty
+
+# Lock Screen
+super + u
+    xsecurelock
+
+# Screenshot
+Print
+	ss-clip
+
+# File explorer
+super + f ; {_,super + }e
+    {switch-or-run "nemo.Nemo" ,_} nemo
+
+# Firefox
+super + f ; {_,super + }f
+    {switch-or-run "Navigator.Firefox-esr" ,_} firefox
+
+# Chrome
+super + f ; {_,super + }c
+    {switch-or-run "chromium.Chromium" ,_} chromium
+
+# VScode
+super + f ; {_,super + }v
+	{switch-or-run "vscodium.VSCodium" ,_} vscodium
+
+# Spotify
+super + f ; {_,super + }s
+	{switch-or-run "spotify.Spotify" ,_} spotify
+
+# WebStorm
+super + f ; {_,super + }w
+	{switch-or-run "sun-awt-X11-XFramePeer.jetbrains-webstorm" ,_} webstorm
+
+# Pycharm
+super + f ; {_,super + }p
+	{switch-or-run "jetbrains-pycharm.jetbrains-pycharm" ,_} pycharm-professional
+
+# Goland
+super + f ; {_,super + }g
+	{switch-or-run "sun-awt-X11-XFramePeer.jetbrains-goland" ,_} goland
+
+# Zathura
+super + f ; {_,super + }z
+	{switch-or-run "zathura.Zathura" ,_} zathura
+
+# Runescape
+super + f ; {_,super + }r
+	{switch-or-run "sun-awt-X11-XFramePeer.net-runelite-client-RuneLite" ,_} "env vblank_mode=0 primusrun runelite --mode=OFF"
+
+# KeePass (cant run two instances)
+super + f ; {_,super + }k
+	{switch-or-run "keepassxc.keepassxc",switch-or-run "keepassxc.keepassxc"}
+
+#---------------#
+# BSPWM hotkeys #
+#---------------#
+
+# Increase window gap
+super + {KP_Add,KP_Subtract}
+	/home/nickolaj/bin/window_gap -d {inc,dec} -v 5
+
+# quit bspwm normally
+super + alt + Escape
+	bspc quit
+
+# close and kill
+super + {_,shift + }w
+	bspc node -{c,k}
+
+# alternate between the tiled and monocle layout
+super + m
+	bspc desktop -l next
+
+# swap the current node and the biggest node
+super + g
+	bspc node -s biggest
+
+# state/flags
+# -----------
+
+# set the window state
+super + {a,shift + a,s,d}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# set the node flags
+super + {x,y,z}
+	bspc node -g {locked,sticky,private}
+
+# focus/swap
+# ----------
+
+# focus/swap/transplant the node in the given direction
+super + {_,shift + ,alt + }{h,j,k,l}
+	bspc node -{f,s,n} {west,south,north,east}
+
+# Balance
+super + b
+    bspc node @/ -B
+
+# focus the next/previous node
+super + {_,shift + }c
+	bspc node -f {next,prev}
+
+# focus the next/previous desktop
+super + bracket{left,right}
+	bspc desktop -f {prev,next}
+
+# focus the last node/desktop
+super + {BackSpace,Tab}
+	bspc {node,desktop} -f last
+
+# focus the older or newer node in the focus history
+super + {o,i}
+	bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+# focus or send to the given desktop
+super + {_,shift + }{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	bspc {desktop -f,node -d} '{web,code,term,music,chat,mon2-1,mon2-2,mon3-1,mon3-2}'
+
+# Change layer
+super + {ae,oslash,apostrophe}
+	bspc node -l {below,normal,above}
+
+# Rotate
+super + {_,shift +} r
+    bspc node @focused:/ -R {90,270}
+
+# circulate leaves backward/forward
+super + {comma,period}
+    bspc node @focused:/ -C {backward,forward}
+
+
+# preselect
+# ---------
+
+super + p ; {h,j,k,l}
+    bspc node -p {west,south,north,east,cancel}
+
+super + p ; Escape
+    bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+# preselect the ratio
+super + p ; {1-9}
+    bspc node -o 0.{1-9}
+
+# move to presel
+super + p ; Return
+    bspc node -n {west,south,north,east}.!automatic
+
+# resize tiled/floating
+# ---------------------
+
+# expand the tiled space in the given direction
+super + ctrl + {h,j,k,l}
+	bspc node {@west -r -10,@south -r +10,@north -r -10,@east -r +10}
+
+# contract the tiled space in the given direction
+super + ctrl + shift + {h,j,k,l}
+	bspc node {@east -r -10,@north -r +10,@south -r -10,@west -r +10}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	xdo move {-x -20,-y +20,-y -20,-x +20}
+
+# Resize a floating window (Java)
+super + shift + r
+	xdo resize -w 200 -h 200 
+
+#------#
+# Meta #
+#------# 
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
+#--------#
+# Unused #
+#--------#
+
+# focus the node for the given path jump
+# super + {p,v,comma,period}
+#   	bspc node -f @{parent,brother,first,second}
+
