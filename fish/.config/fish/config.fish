@@ -40,4 +40,6 @@ if status --is-interactive
     source "$BASE16_SHELL/profile_helper.fish"
 end
 
+bind \ca fzf_complete
+
 #neofetch --ascii_distro arch --disable shell
