@@ -6,6 +6,7 @@ set PATH /snap/bin $PATH
 set PATH /usr/bin/core_perl/ $PATH
 set PATH ~/.local/bin $PATH
 set PATH ~/.dotnet/tools $PATH
+set PATH ~/.cargo/bin $PATH
 set PATH /opt/android-sdk/tools/bin $PATH
 set -g -x ANDROID_SDK_ROOT /opt/android-sdk/tools/bin
 

@@ -20,7 +20,7 @@ Plug 'jkramer/vim-checkbox'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
+Plug 'norcalli/nvim-colorizer.lua'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -32,6 +32,11 @@ set nocompatible
 set number
 set cursorline
 set scrolloff=2
+
+" Colors
+execute "set t_8f=\e[38;2;%lu;%lu;%lum"
+execute "set t_8b=\e[48;2;%lu;%lu;%lum"
+set termguicolors
 
 filetype plugin on
 filetype indent on
@@ -85,3 +90,4 @@ let g:EasyMotion_do_mapping = 0
 "NERDTree
 let g:NERDTreeMouseMode=3 
 
+lua require'colorizer'.setup()
