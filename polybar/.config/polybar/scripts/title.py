@@ -5,6 +5,8 @@ import subprocess
 import pprint
 import sys
 import textwrap
+import Xlib.display
+import Xlib
 
 MAX_SIZE = 120
 
@@ -36,10 +38,20 @@ def write(o):
     sys.stdout.flush()
 
 
-update_query = subprocess.Popen(['bspc', 'subscribe'], stdout=subprocess.PIPE)
+disp = Xlib.display.Display()
+root = disp.screen().root
 
-while update_query.poll() is None:
-    update_query.stdout.readline()
+NET_WM_NAME = disp.intern_atom('_NET_WM_NAME')
+NET_ACTIVE_WINDOW = disp.intern_atom('_NET_ACTIVE_WINDOW')
+
+root.change_attributes(event_mask=Xlib.X.FocusChangeMask)
+
+while True:
+    # I dont understand xorg at all, but this apperently causes next_event
+    # to fire on all title changes
+    window_id = root.get_full_property(NET_ACTIVE_WINDOW, Xlib.X.AnyPropertyType).value[0]
+    window = disp.create_resource_object('window', window_id)
+    window.change_attributes(event_mask=Xlib.X.PropertyChangeMask)
 
     query = call(['bspc', 'query', '-T', '-d'])
 
@@ -63,5 +75,7 @@ while update_query.poll() is None:
 
         write(result[:-1])
 
+    # Wait for next event
+    disp.next_event()
 
 
