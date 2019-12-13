@@ -3,6 +3,8 @@
 export SXHKD_SHELL=bash
 xrdb -merge  ~/.Xresources                                                                                                                                               
 PATH=$PATH:~/bin
+_JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+_JAVA_AWT_WM_NONREPARENTING=1
 
 sxhkd -r ~/tmp/sxhkd.log -m 1 &
 
@@ -13,6 +15,7 @@ xset m 1/1 0 & # Mouse acc
 xset b off &
 
 xset s 300 5 &
+XSECURELOCK_SAVER=saver_xscreensaver
 xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock &
 
 # CONFIGS
@@ -61,4 +64,4 @@ dunst &
 nm-applet &
 slack &
 chromium &
-pycharm-professional &
+fish -c 'pycharm-professional' &
