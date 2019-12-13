@@ -2,6 +2,7 @@ eval (python -m virtualfish)
 
 set PATH ~/.config/panel $PATH
 set PATH ~/bin $PATH
+set PATH ~/Development/devenv/bin $PATH
 set PATH /snap/bin $PATH
 set PATH /usr/bin/core_perl/ $PATH
 set PATH ~/.local/bin $PATH
@@ -16,6 +17,8 @@ set -x LANG en_US.UTF-8
 set LC_MESSAGES "C"
 set SXHKD_SHELL sh
 set -x VIRTUAL_ENV_DISABLE_PROMPT 1
+set -g -x AO_USER nij
+
 
 # start X at login
 if status --is-login
@@ -42,5 +45,5 @@ if status --is-interactive
 end
 
 bind \ca fzf_complete
-
+thefuck --alias | source
 #neofetch --ascii_distro arch --disable shell
