@@ -47,7 +47,7 @@ super + q
 
 # terminal emulator
 super + Return
-	alacritty
+	kitty
 
 # Lock Screen
 super + u

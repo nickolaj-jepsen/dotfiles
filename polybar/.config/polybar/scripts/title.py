@@ -7,6 +7,7 @@ import sys
 import textwrap
 import Xlib.display
 import Xlib
+import threading
 
 MAX_SIZE = 120
 
@@ -38,21 +39,8 @@ def write(o):
     sys.stdout.flush()
 
 
-disp = Xlib.display.Display()
-root = disp.screen().root
 
-NET_WM_NAME = disp.intern_atom('_NET_WM_NAME')
-NET_ACTIVE_WINDOW = disp.intern_atom('_NET_ACTIVE_WINDOW')
-
-root.change_attributes(event_mask=Xlib.X.FocusChangeMask)
-
-while True:
-    # I dont understand xorg at all, but this apperently causes next_event
-    # to fire on all title changes
-    window_id = root.get_full_property(NET_ACTIVE_WINDOW, Xlib.X.AnyPropertyType).value[0]
-    window = disp.create_resource_object('window', window_id)
-    window.change_attributes(event_mask=Xlib.X.PropertyChangeMask)
-
+def render():
     query = call(['bspc', 'query', '-T', '-d'])
 
     if query['layout'] != 'monocle':
@@ -75,7 +63,40 @@ while True:
 
         write(result[:-1])
 
-    # Wait for next event
-    disp.next_event()
+
+def bspwm_monitor():
+    update_query = subprocess.Popen(['bspc', 'subscribe'], stdout=subprocess.PIPE)
+    while True:
+        update_query.stdout.readline()
+        render()
+
+def x_monitor():
+    disp = Xlib.display.Display()
+    root = disp.screen().root
+
+    NET_ACTIVE_WINDOW = disp.intern_atom('_NET_ACTIVE_WINDOW')
+
+    root.change_attributes(event_mask=Xlib.X.FocusChangeMask)
+
+    while True:
+        # I dont understand xorg at all, but this apperently causes next_event
+        # to fire on all title changes
+        window_id = root.get_full_property(NET_ACTIVE_WINDOW, Xlib.X.AnyPropertyType).value[0]
+        window = disp.create_resource_object('window', window_id)
+        window.change_attributes(event_mask=Xlib.X.PropertyChangeMask)
+
+        render()
+
+        # Wait for next event
+        disp.next_event()
 
 
+def main(): 
+    bspwm_task = threading.Thread(target=bspwm_monitor)
+    x_task = threading.Thread(target=x_monitor)
+
+    bspwm_task.start()
+    x_task.start()
+
+if __name__ == '__main__':
+    main()
