@@ -58,6 +58,7 @@ bspc monitor HDMI2 -d mon2-1 mon2-2
 bspc monitor VGA1 -d mon3-1 mon3-2
 
 bspc wm --adopt-orphans
+playerctl-notifer &
 
 # SETUP APPS
 dunst &

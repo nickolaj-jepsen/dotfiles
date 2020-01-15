@@ -1,5 +1,7 @@
 eval (python -m virtualfish)
 
+source ~/.config/fish/flatpak.fish
+
 set PATH ~/.config/panel $PATH
 set PATH ~/bin $PATH
 set PATH ~/Development/devenv/bin $PATH

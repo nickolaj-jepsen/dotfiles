@@ -1,0 +1,20 @@
+#!/bin/bash
+
+while getopts :d:v: option; do
+    case "${option}" in
+        d) DIRECTION=${OPTARG};;
+        v) VALUE=${OPTARG};;
+    esac
+done
+
+CURRENT="$(bspc config -d focused window_gap)"
+
+if [ "$DIRECTION" == "inc" ]; then
+    NEW=$(($CURRENT + $VALUE))
+elif [ "$DIRECTION" == "dec" ]; then
+    NEW=$(($CURRENT - $VALUE))
+else
+    NEW=$CURRENT
+fi
+
+bspc config -d focused window_gap $NEW

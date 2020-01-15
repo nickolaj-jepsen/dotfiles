@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+while true; do
+	# requires playerctl>=2.0
+	playerctl --follow metadata --format $'{{ title }}\t{{ artist }}\t{{ mpris:artUrl }}' |
+	while IFS=$'\t' read -r TITLE ARTIST ALBUM_URL; do
+        curl -Ls -o /tmp/spotify_notifer.jpeg $ALBUM_URL
+		notify-send --app-name='spotify_notifier' -i '/tmp/spotify_notifer.jpeg' "$TITLE" "$ARTIST"
+	done
+	# no current players
+	sleep 15
+done
+
