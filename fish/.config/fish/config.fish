@@ -39,7 +39,6 @@ set -g -x SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
 # Alias
 alias server "ssh server@ts.reasonablebravery.com"
 alias p "env vblank_mode=0 primusrun"
-alias go "grc go"
 
 if status --is-interactive
     set BASE16_SHELL "$HOME/.config/base16-shell/"
