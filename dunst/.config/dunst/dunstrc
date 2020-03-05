@@ -21,8 +21,8 @@
     history_length = 0
     line_height = 0
     separator_height = 4
-    padding = 8
-    horizontal_padding = 8
+    padding = 16
+    horizontal_padding = 16
     separator_color = auto
     startup_notification = false
     browser = google-chrome-stable
