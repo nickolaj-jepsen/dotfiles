@@ -51,9 +51,9 @@ wm-restack = bspwm
 
 spacing = ${settings.icon_spacing}
 
-;font-0 = TamzenForPowerline:style=regular:pixelsize=15;1
-;font-1 = TamzenForPowerline:style=regular:pixelsize=15;2
-font-0 = HackNerdFont:size=10;3
+;font-0 = HackNerdFont:size=10;3
+;font-1 = HackNerdFont:size=10;3
+font-0 = Cozette;3
 font-1 = HackNerdFont:size=10;3
 font-2 = FontAwesome:size=8;2
 font-3 = Material\ Icons:size=10;3
@@ -232,7 +232,7 @@ tail = true
 
 [module/date]
 type = internal/date
-label-font = 2
+label-font = 1
 format-padding = ${settings.default_padding}
 format-background = ${settings.background}
 date = %%{F#cc}%Y-%m-%d%%{F-}  %%{F#ff}%H:%M%%{F-}
