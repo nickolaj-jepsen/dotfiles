@@ -2,16 +2,16 @@
     "python.venvPath": "~/.virtualenvs",
     "python.jediEnabled": false,
     "diagnostic-languageserver.filetypes": {
-  "sh": "shellcheck"
-},
-"diagnostic-languageserver.formatFiletypes": {
-  "sh": "shfmt"
-},
-"diagnostic-languageserver.formatters": {
-  "shfmt": {
-    "command": "shfmt",
-    "args": ["-i", "2", "-bn", "-ci", "-sr"]
-  }
-} 
+       "sh": "shellcheck -x"
+    },
+    "diagnostic-languageserver.formatFiletypes": {
+        "sh": "shfmt"
+    },
+    "diagnostic-languageserver.formatters": {
+        "shfmt": {
+            "command": "shfmt",
+            "args": ["-i", "2", "-bn", "-ci", "-sr"]
+        }
+    } 
 }
 
