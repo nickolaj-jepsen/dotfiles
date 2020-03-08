@@ -55,7 +55,7 @@ map <C-A-l> :Neoformat<CR>
 imap jk <Esc>
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
-nmap s <Plug>(easymotion-s2)
+map <Leader>s <Plug>(easymotion-s2)
 vnoremap s <Plug>(easymotion-s2)
 
 " Theme
@@ -89,5 +89,12 @@ let g:EasyMotion_do_mapping = 0
 
 "NERDTree
 let g:NERDTreeMouseMode=3 
+
+"put this in your .vimrc
+set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.min.*,__pycache__
+
+"Nerdtree config for wildignore
+let NERDTreeRespectWildIgnore=1
+
 
 lua require'colorizer'.setup()
