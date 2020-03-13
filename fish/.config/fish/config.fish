@@ -1,7 +1,5 @@
 eval (python -m virtualfish)
 
-source ~/.config/fish/flatpak.fish
-
 set PATH ~/.config/panel $PATH
 set PATH ~/bin $PATH
 set PATH ~/Development/devenv/bin $PATH
@@ -41,7 +39,7 @@ alias server "ssh server@ts.reasonablebravery.com"
 alias p "env vblank_mode=0 primusrun"
 
 if status --is-interactive
-    set BASE16_SHELL "$HOME/.config/base16-shell/"
+    set BASE16_SHELL "$HOME/.config/base16-shell"
     source "$BASE16_SHELL/profile_helper.fish"
 end
 

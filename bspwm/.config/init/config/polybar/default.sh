@@ -1,1 +1,1 @@
-polybar top &
+MONITOR=HDMI1 polybar top &

@@ -1,5 +1,6 @@
 #! /bin/sh
 
+xrandr --dpi 96
 xrdb -merge  ~/.Xresources
 setxkbmap -layout eu &
 xsetroot -cursor_name left_ptr &

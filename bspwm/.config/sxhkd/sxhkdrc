@@ -26,11 +26,11 @@ XF86MonBrightnessDown
 #------------------#
 
 # Emoji
-super + semicolon 
+super + apostrophe 
     rofi -modi emoji -show emoji -hide-scrollbar
 
 # Calculator
-super + backslash 
+super + semicolon
     rofi -modi calc -show calc -hide-scrollbar
 
 # program launcher
@@ -166,7 +166,7 @@ super + {ae,oslash,apostrophe}
 	bspc node -l {below,normal,above}
 
 # Rotate
-super + {_,shift +} r
+super + {_,shift +} backslash
     bspc node @focused:/ -R {90,270}
 
 # circulate leaves backward/forward
