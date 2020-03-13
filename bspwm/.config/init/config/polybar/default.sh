@@ -1,1 +1,1 @@
-MONITOR=HDMI1 polybar top &
+MONITOR=HDMI1 polybar -c ~/.config/polybar/main.ini -r top &

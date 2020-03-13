@@ -2,7 +2,7 @@
     icon_position = left
     icon_path = /home/nickolaj/Pictures/
     max_icon_size = 100
-    font = "ypn envypn, 10"
+    font = "HackNerdFont, 12"
     allow_markup = yes
     format = "<b>%s</b> %p\n%b"
     sort = yes
@@ -43,21 +43,21 @@
     script = /home/nickolaj/bin/play-beep
 
 [frame]
-    width = 5
-    color = "#393f4c"
+    width = 4
+    color = "#CF6A4C"
 
 [shortcuts]
     close = ctrl+space
     close_all = ctrl+shift+space
 
 [urgency_low]
-    background = "#2F343F"
-    foreground = "#eaeaea"
+    background = "#1C1C1C"
+    foreground = "#C5C5C5"
     timeout = 1
 
 [urgency_normal]
-    background = "#2F343F"
-    foreground = "#eaeaea"
+    background = "#1C1C1C"
+    foreground = "#C5C5C5"
     timeout = 10
 
 [urgency_critical]
