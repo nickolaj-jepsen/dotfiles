@@ -1,0 +1,5 @@
+# Don't inclue files downloaded by fisher
+fish/.config/fish/functions
+fish/.config/fish/conf.d
+fish/.config/fish/fish_variables
+fish/.config/fish/completions
