@@ -1,0 +1,18 @@
+#!/bin/sh
+
+ACTIVE_WINDOW=$(xdotool getactivewindow)
+CLASS=$(xprop -id $(xdotool getactivewindow) | grep CLASS)
+OFFSET=0
+
+if [ "$CLASS" == "WM_CLASS(STRING) = \"Navigator\", \"firefox\"" ]; then
+    OFFSET=74
+fi
+
+RES=${1:-720}
+Y=$(($RES+$OFFSET))
+X=$(($RES/9*16))
+
+echo $X $Y
+
+bspc node -t floating
+xdotool windowsize $ACTIVE_WINDOW $X $Y

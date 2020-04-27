@@ -191,6 +191,10 @@ super + p ; {1-9}
 super + p ; Return
     bspc node -n {west,south,north,east}.!automatic
 
+# Scale window for streaming 
+super + p ; {ctrl +,_, shift +} s
+    scale-to-16-9 {720,1080,1440}
+
 # resize tiled/floating
 # ---------------------
 
