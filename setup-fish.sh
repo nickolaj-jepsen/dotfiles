@@ -5,5 +5,5 @@ if ! [ -x "$(command -v fish)" ]; then
     exit 1
 fi
 
-curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/fisher/functions/fisher.fish
 fish -c 'fisher'
