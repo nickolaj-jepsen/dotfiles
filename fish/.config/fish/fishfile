@@ -2,9 +2,9 @@ fishpkg/fish-git-util
 fishpkg/fish-host-info
 fishpkg/fish-humanize-duration
 fishpkg/fish-last-job-id
-fishpkg/fish-prompt-metro
 fishpkg/fish-pwd-info
 fishpkg/fish-pwd-is-home
 laughedelic/pisces
 barnybug/docker-fish-completion
 jethrokuan/z
+oh-my-fish/theme-bobthefish
