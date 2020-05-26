@@ -28,8 +28,8 @@ function bobthefish_colors -S -d 'Define a custom bobthefish color scheme'
 
   set -x color_vagrant                  brcyan black
   set -x color_k8s                      magenta white --bold
-  set -x color_username                 white black --bold
-  set -x color_hostname                 white black
+  set -x color_username                 black white --bold
+  set -x color_hostname                 black white
   set -x color_rvm                      brmagenta black --bold
   set -x color_virtualfish              brblue black --bold
   set -x color_virtualgo                brblue black --bold
