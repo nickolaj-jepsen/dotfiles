@@ -17,8 +17,9 @@ bspc config focused_border_color "#cf6a4c"
 bspc config focus_follows_pointer false
 
 # RULES
-bspc rule -a firefox desktop=web
+bspc rule -a google-chrome desktop=web
+bspc rule -a firefox desktop=term
 bspc rule -a Chromium desktop=web
 bspc rule -a jetbrains-pycharm desktop=code
-bspc rule -a Slack desktop=chat
-
+bspc rule -a Slack desktop=mon2-1
+bspc rule -a kitty-proxy desktop=mon3-2
