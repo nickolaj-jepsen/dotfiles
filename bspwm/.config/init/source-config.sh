@@ -2,7 +2,12 @@
 set -e
 
 CONFIG_DIR="$HOME/.config/init/config"
+CONFIG_OVERRIDE="$(hostname)"
 
+if [ -f "$HOME/.init_override" ]; then
+    CONFIG_OVERRIDE="$(cat "$HOME/.init_override")"
+fi
+echo $CONFIG_OVERRIDE
 if [ -z "$1" ]; then 
     echo "Error 101: No argument passed to config runner"
     exit 101
