@@ -3,6 +3,7 @@ if type -q nvim
 end
 
 if type -q devenv
-    alias shop "devenv dk"
-    alias flex "devenv flex"
+    abbr de "devenv"
+    abbr shop "devenv"
+    abbr flex "devenv --flex"
 end
