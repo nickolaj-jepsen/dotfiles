@@ -6,6 +6,7 @@ fishpkg/fish-pwd-info
 fishpkg/fish-pwd-is-home
 laughedelic/pisces
 barnybug/docker-fish-completion
-jethrokuan/z
 oh-my-fish/theme-bobthefish
 jethrokuan/fzf
+joehillen/to-fish
+evanlucas/fish-kubectl-completions
