@@ -5,7 +5,7 @@ if ! command -v xrandr; then
     exit 102
 fi
 
-FIRST_MONITOR=xrandr --listmonitors | grep '+' | awk '{ print $4 }' | head --lines 1
+FIRST_MONITOR=$(xrandr --listmonitors | grep '+' | awk '{ print $4 }' | head --lines 1)
 
 feh --bg-fill --recursive /home/nickolaj/Pictures/ee.png 
 
