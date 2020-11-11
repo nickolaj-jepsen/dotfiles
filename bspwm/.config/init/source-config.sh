@@ -16,7 +16,7 @@ fi
 PRE_SCRIPT="$CONFIG_DIR/$1/init.sh"
 POST_SCRIPT="$CONFIG_DIR/$1/post.sh"
 DEFAULT_SCRIPT="$CONFIG_DIR/$1/default.sh"
-HOST_SCRIPT="$CONFIG_DIR/$1/$(hostname).sh"
+HOST_SCRIPT="$CONFIG_DIR/$1/$CONFIG_OVERRIDE.sh"
 
 if [ -x "$PRE_SCRIPT" ]; then
     # shellcheck source=/dev/null
