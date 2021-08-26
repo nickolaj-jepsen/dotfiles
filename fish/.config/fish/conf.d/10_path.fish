@@ -12,3 +12,4 @@ append_path /var/lib/snapd/snap/bin
 append_path /usr/bin/core_perl/
 append_path ~/.local/bin
 append_path ~/.yarn/bin
+append_path ~/.krew/bin

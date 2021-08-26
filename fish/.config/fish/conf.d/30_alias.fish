@@ -23,6 +23,10 @@ end
 
 if type -q snap
     set PYCHARM_SNAP (snap list | grep 'pycharm' | awk '{ print $1 }')
+    set HELM_SNAP (snap list | grep 'helm' | awk '{ print $1 }')
+    if test -n "$HELM_SNAP"
+        alias helm "snap run $HELM_SNAP"
+    end
     if test -n "$PYCHARM_SNAP"
         alias pycharm "snap run $PYCHARM_SNAP"
     end
