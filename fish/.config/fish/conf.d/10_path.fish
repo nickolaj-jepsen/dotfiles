@@ -13,3 +13,4 @@ append_path /usr/bin/core_perl/
 append_path ~/.local/bin
 append_path ~/.yarn/bin
 append_path ~/.krew/bin
+append_path /snap/bin
