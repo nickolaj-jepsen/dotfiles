@@ -18,7 +18,7 @@ bspc config focus_follows_pointer false
 
 # RULES
 bspc rule -a google-chrome desktop=web
-bspc rule -a firefox desktop=term
+bspc rule -a firefox desktop=web
 bspc rule -a Chromium desktop=web
 bspc rule -a jetbrains-pycharm desktop=code
 bspc rule -a Slack desktop=mon2-2
