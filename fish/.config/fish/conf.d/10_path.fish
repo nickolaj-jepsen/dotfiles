@@ -14,3 +14,6 @@ append_path ~/.local/bin
 append_path ~/.yarn/bin
 append_path ~/.krew/bin
 append_path /snap/bin
+append_path ~/.garden/bin
+append_path ~/.cargo/bin
+append_path ~/.cargo/env 

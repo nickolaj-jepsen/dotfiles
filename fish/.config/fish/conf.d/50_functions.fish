@@ -17,6 +17,9 @@ function kubeenv;
     abbr krs kubectl rollout status
     abbr krr kubectl rollout restart
     abbr krm kubectl delete
+    abbr kt kubectl top
+    abbr ktp kubectl top pods
+    abbr ktn kubectl top nodes
     set -g theme_display_k8s_context yes
 
     if not set -q _flag_no_proxy 

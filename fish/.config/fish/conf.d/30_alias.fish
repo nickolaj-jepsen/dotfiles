@@ -21,6 +21,14 @@ if type -q devenv
     end
 end
 
+if type -q docker
+    abbr d "docker"
+end
+
+if type -q docker-compose
+    abbr dc "docker-compose"
+end
+
 if type -q snap
     set PYCHARM_SNAP (snap list | grep 'pycharm' | awk '{ print $1 }')
     set HELM_SNAP (snap list | grep 'helm' | awk '{ print $1 }')

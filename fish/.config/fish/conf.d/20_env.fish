@@ -7,3 +7,5 @@ set -g -x _JAVA_OPTIONS '-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -D
 set -g -x _JAVA_AWT_WM_NONREPARENTING 1
 set -g -x SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
 
+set -g -x EDITOR nvim
+set -g -x PAGER less
