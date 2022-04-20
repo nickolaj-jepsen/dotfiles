@@ -43,3 +43,7 @@ end
 if type -q to
     abbr z "to"
 end
+
+if type -q broot
+    abbr br "broot"
+end
