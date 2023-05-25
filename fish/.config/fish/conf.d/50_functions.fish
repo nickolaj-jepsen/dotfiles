@@ -1,26 +1,32 @@
 function kubeenv;
     argparse --ignore-unknown 'n/no-proxy' 'c/context=+' -- $argv
+    set kube_verbs       get describe delete edit
+    set kube_verbs_short g   d        rm     e
+    
+    set kube_resource       pods deployments services ingresses configmaps daemonsets statefulsets namespace namespace
+    set kube_resource_short p    d           s        i         c          ds         ss           n         ns
+
+    for verb_index in (seq (count $kube_verbs))
+        abbr "k$kube_verbs_short[$verb_index]" "kubectl $kube_verbs[$verb_index]"
+        for res_index in (seq (count $kube_resource))
+            abbr "k$kube_verbs_short[$verb_index]$kube_resource_short[$res_index]" "kubectl $kube_verbs[$verb_index] $kube_resource[$res_index]"
+        end
+    end
 
     abbr k kubectl
-    abbr kg kubectl get
-    abbr kgp kubectl get pods
-    abbr kgd kubectl get deployments
-    abbr kgs kubectl get services
-    abbr kd kubectl describe
-    abbr kdp kubectl describe pods
-    abbr kdd kubectl describe deployments
-    abbr kds kubectl describe services
     abbr kl kubectl logs -f
-    abbr ka kubectl apply
+    abbr kgl kubectl logs -f
     abbr kaf kubectl apply -f
     abbr kr kubectl rollout
     abbr krs kubectl rollout status
     abbr krr kubectl rollout restart
-    abbr krm kubectl delete
     abbr kt kubectl top
     abbr ktp kubectl top pods
     abbr ktn kubectl top nodes
+    abbr kpf kubectl port-forward
+    abbr kfp kubectl port-forward
     set -g theme_display_k8s_context yes
+
 
     if not set -q _flag_no_proxy 
         set -xg http_proxy http://bastion:3128/
