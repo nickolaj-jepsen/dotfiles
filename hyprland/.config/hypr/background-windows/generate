@@ -1,0 +1,2 @@
+#!/bin/sh
+inkscape -w 3840 -h 2160 image.svg -o image.png
