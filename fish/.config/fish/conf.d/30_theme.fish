@@ -34,5 +34,6 @@ function bobthefish_colors -S -d 'Define a custom bobthefish color scheme'
   set -x color_virtualfish              brblue black --bold
   set -x color_virtualgo                brblue black --bold
   set -x color_desk                     brblue black --bold
+  set -g theme_display_nix              yes
 end
 
