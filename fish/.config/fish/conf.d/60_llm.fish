@@ -4,11 +4,12 @@ function llm-diff
     echo "\
 suggest 3 commit messages based on the following diff:
 
-$(git diff)
+$(git diff HEAD)
 
 commit messages should:
- - follow conventional commits
- - message format should be: <type>(scope): <description>
+ - follow conventional commits, always WITHOUT SCOPE
+ - message format should be: <type>: <description>
  - do not include filenames
- - max length 72 characters" | llm $argv
+ - be brief
+ - max length 60 characters" | llm $argv # 72 - space for scope
 end

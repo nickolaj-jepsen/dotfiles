@@ -2,25 +2,6 @@ if type -q nvim
     alias vim nvim
 end
 
-if type -q devenv
-    abbr de "devenv"
-    abbr shop "devenv"
-    abbr flex "devenv --flex"
-    abbr all "devenv -s all"
-    function shell --argument-names 'shop'
-        if set -q $argv[1]
-            set shop billigvvs.dk
-        end
-        devenv -s $shop django manage shell_plus
-    end
-    function logs --argument-names 'shop'
-        if set -q $argv[1]
-            set shop billigvvs.dk
-        end
-        devenv -s $shop django logs
-    end
-end
-
 if type -q docker
     abbr d "docker"
 end
@@ -46,4 +27,11 @@ end
 
 if type -q broot
     abbr br "broot"
+end
+
+if type -q terraform
+    abbr tf "terraform"
+    abbr tfp "terraform plan"
+    abbr tfa "terraform apply"
+    abbr tfi "terraform init"
 end

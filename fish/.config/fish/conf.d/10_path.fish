@@ -17,3 +17,4 @@ append_path /snap/bin
 append_path ~/.garden/bin
 append_path ~/.cargo/bin
 append_path ~/.cargo/env 
+append_path ~/.rye/shims 
