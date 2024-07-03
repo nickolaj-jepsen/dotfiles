@@ -18,6 +18,21 @@ function __echo_kubeexec;
     echo "kubectl exec --namespace $_flag_namespace -it $POD --"
 end
 
+function __echo_kubemanage;
+    set _flag_namespace (kubectl config view --minify --output 'jsonpath={..namespace}')
+    if test -z "$_flag_namespace"
+        set _flag_namespace default
+    end
+
+    set _flag_pod shop
+    set POD (kubectl get pods --namespace $_flag_namespace 2>/dev/null | grep "^$_flag_pod" | grep Running | head -n1 | awk '{ print $1 }')
+    if test -z "$POD"
+        echo "kubectl exec --namespace $_flag_namespace -it"
+        return
+    end
+    echo "kubectl exec --namespace $_flag_namespace -it $POD -- python3 /src/lib/manage.py"
+end
+
 if type -q kubectl
     for verb_index in (seq (count $__kube_verbs))
         abbr "k$__kube_verbs_short[$verb_index]" "kubectl $__kube_verbs[$verb_index]"
@@ -43,5 +58,5 @@ if type -q kubectl
     abbr ksns "kubectl config set-context --current --namespace"
 
     abbr kexec --function __echo_kubeexec
-    abbr kmanage "kexec python3 /src/lib/manage.py"
+    abbr kmanage --function __echo_kubemanage
 end
