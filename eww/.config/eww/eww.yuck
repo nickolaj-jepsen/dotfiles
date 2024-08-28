@@ -1,7 +1,7 @@
 ; WINDOWS
 
 (defwindow primary
-  :monitor 0
+  :monitor 2
   :stacking "fg"
   :exclusive true
   :geometry (geometry :x "0%"
@@ -23,7 +23,7 @@
   (left_bar))
 
 (defwindow right
-  :monitor 2
+  :monitor 0
   :stacking "fg"
   :exclusive false
   :geometry (geometry :x "0%"
@@ -47,7 +47,7 @@
 ; BARS
 
 (defwidget primary_bar []
-  (box :class "bar primary-bar ${current_monitor == 'DP-1' ? 'active' : ''}"
+  (box :class "bar primary-bar ${current_monitor == 'DP-2' ? 'active' : ''}"
     (box :class "primary-left" :space-evenly false :halign "start" 
       (datetime)
       (workspaces :ids "[\"1\",\"2\",\"3\",\"4\",\"5\"]"))
@@ -55,7 +55,7 @@
     (controls :halign "end")))
 
 (defwidget left_bar []
-  (box :class "bar side-bar left-bar ${current_monitor == 'HDMI-A-1' ? 'active' : ''}" :halign "end"
+  (box :class "bar side-bar left-bar ${current_monitor == 'DP-1' ? 'active' : ''}" :halign "end"
     (workspaces :ids "[\"6\",\"7\"]")))
 
 (defwidget right_bar []
@@ -68,7 +68,7 @@
   (box :space-evenly false :spacing 10 :class "workspaces"
     (for id in ids
       (eventbox :onclick "hyprctl dispatch workspace ${id}"
-        (box :class "workspace-entry ${current_workspace == id ? 'active' : 'inactive'} ${(workspaces?.[id]?.windows?:0) >= 1 ? 'has-windows' : 'no-windows'}")))))
+        (box :class "workspace-entry ${current_workspace == id ? 'active' : 'inactive'} ${(workspaces[id] != "null" ? workspaces[id].windows : 0) >= 1 ? 'has-windows' : 'no-windows'}")))))
 
 (defwidget datetime []
   (box :space-evenly false :class "datetime" :spacing 10
@@ -78,8 +78,8 @@
 (defwidget controls []
   (box :space-evenly false :class "controls" :halign "end" 
     (music)
-    (metric :icon {volume?.["icon"]?:""}
-            :value {volume?.["audio"] != "1" ? 0 : volume?.["percent"]}
+    (metric :icon {volume["icon"]?:""}
+            :value {volume["audio"] != "1" ? 0 : volume["percent"]}
             :onchange "~/.config/eww/scripts/volume setvol SINK {}"
             :onclick "~/.config/eww/scripts/volume mute SINK")))
 
@@ -110,6 +110,6 @@
            :orientation 'h'
            :active true
            :onchange "playerctl position -i firefox"
-           :visible {(music?.["position"]?:"") != ""}
-           :value {music?.["position"]?:0})
+           :visible {(music["position"]?:"") != ""}
+           :value {music["position"]?:0})
     (label :class "music-timer" :text {music["length"]})))
