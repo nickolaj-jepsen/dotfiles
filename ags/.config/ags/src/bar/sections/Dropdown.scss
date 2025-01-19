@@ -1,0 +1,9 @@
+@use "../../variables.scss" as *;
+
+.Dropdown {
+  padding: 15px;
+  background-color: $bg;
+  border: 2px solid $accent;
+  border-bottom-left-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
