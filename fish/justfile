@@ -1,0 +1,14 @@
+install-debian:
+    sudo apt install fish
+
+install-arch:
+    sudo pacman -S fish
+
+install:
+    if $DISTRO == "debian" {
+        just install-debian
+    } else if $DISTRO == "arch" {
+        just install-arch
+    } else {
+        @echo "Unknown distro"
+    }

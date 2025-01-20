@@ -1,0 +1,102 @@
+deps:
+    sudo apt install \
+        meson \
+        wget  \
+        build-essential  \
+        ninja-build  \
+        cmake-extras  \
+        cmake  \
+        gettext  \
+        gettext-base \
+        fontconfig \
+        libfontconfig-dev \
+        libffi-dev \
+        libxml2-dev \
+        libdrm-dev \
+        libxkbcommon-x11-dev \
+        libxkbregistry-dev \
+        libxkbcommon-dev \
+        libpixman-1-dev \
+        libudev-dev \
+        libseat-dev \
+        seatd \
+        libxcb-dri3-dev \
+        libegl-dev \
+        libgles2 \
+        libegl1-mesa-dev \
+        glslang-tools \
+        libinput-bin \
+        libinput-dev \
+        libxcb-composite0-dev \
+        libavutil-dev \
+        libavcodec-dev \
+        libavformat-dev \
+        libxcb-ewmh2 \
+        libxcb-ewmh-dev \
+        libxcb-present-dev \
+        libxcb-icccm4-dev \
+        libxcb-render-util0-dev \
+        libxcb-res0-dev \
+        libxcb-xinput-dev \
+        libtomlplusplus3 \
+        libpugixml-dev \
+        libzip-dev \
+        librsvg2-dev \
+        libtomlplusplus-dev \
+        libjxl-dev \
+        libmagic-dev \
+        libre2-dev \
+        libxcb-errors-dev
+
+clone:
+    git clone --recursive --branch v0.46.2 --depth 1 git@github.com:hyprwm/Hyprland.git
+    git clone --recursive --branch v0.7.1 --depth 1 git@github.com:hyprwm/aquamarine.git
+    git clone --recursive --branch v0.4.4 --depth 1 git@github.com:hyprwm/hyprwayland-scanner.git
+    git clone --recursive --branch v0.3.3 --depth 1 git@github.com:hyprwm/hyprutils.git
+    git clone --recursive --branch v0.6.0 --depth 1 git@github.com:hyprwm/hyprlang.git
+    git clone --recursive --branch v0.1.11 --depth 1 git@github.com:hyprwm/hyprcursor.git
+    git clone --recursive --branch v0.1.1 --depth 1 git@github.com:hyprwm/hyprgraphics.git
+
+[working-directory: 'hyprwayland-scanner']
+build-hyprwayland-scanner:
+    cmake -DCMAKE_INSTALL_PREFIX=/usr -B build
+    cmake --build build -j `nproc`
+    sudo cmake --install build
+
+[working-directory: 'hyprutils']
+build-hyprutils:
+    cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -S . -B ./build
+    cmake --build ./build --config Release --target all -j`nproc 2>/dev/null || getconf NPROCESSORS_CONF`
+    sudo cmake --install build
+
+[working-directory: 'aquamarine']
+build-aquamarine:
+    cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -S . -B ./build
+    cmake --build ./build --config Release --target all -j`nproc 2>/dev/null || getconf _NPROCESSORS_CONF`
+    sudo cmake --install build
+
+[working-directory: 'hyprlang']
+build-hyprlang:
+    cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -S . -B ./build
+    cmake --build ./build --config Release --target hyprlang -j`nproc 2>/dev/null || getconf _NPROCESSORS_CONF`
+    sudo cmake --install build
+
+[working-directory: 'hyprcursor']
+build-hyprcursor:
+    cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -S . -B ./build
+    cmake --build ./build --config Release --target all -j`nproc 2>/dev/null || getconf _NPROCESSORS_CONF`
+    sudo cmake --install build
+
+[working-directory: 'hyprgraphics']
+build-hyprgraphics:
+    cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -S . -B ./build
+    cmake --build ./build --config Release --target all -j`nproc 2>/dev/null || getconf NPROCESSORS_CONF`
+    sudo cmake --install build
+
+build-deps: build-hyprwayland-scanner build-hyprutils build-aquamarine build-hyprlang build-hyprcursor build-hyprgraphics
+    
+
+[working-directory: 'Hyprland']
+build:
+    make all 
+    sudo make install
