@@ -1,6 +1,17 @@
 set -gx theme_date_timezone Europe/Copenhagen
 set -gx theme_date_format "+%a %H:%M"
 
+# Should be converted to standard terminal colors, but currently they are aweful :(
+set -gx fish_color_autosuggestion brblack
+set -gx fish_color_comment red
+set -gx fish_color_end 009900
+set -gx fish_color_error ff0000
+set -gx fish_color_escape 00a6b2
+set -gx fish_color_operator 00a6b2
+set -gx fish_color_param 00afff
+set -gx fish_color_quote 999900
+set -gx fish_color_redirection 00afff
+
 function bobthefish_colors -S -d 'Define a custom bobthefish color scheme'
 
   # Optionally include a base color scheme
