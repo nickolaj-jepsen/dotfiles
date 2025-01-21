@@ -87,7 +87,7 @@ export function connectDropdown(
           dropdown.hide();
         },
         "hideDropdown",
-        ANIMATION_DURATION,
+        ANIMATION_DURATION - 50,
       );
     }
   });

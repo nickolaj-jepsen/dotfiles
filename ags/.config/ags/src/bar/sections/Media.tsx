@@ -8,6 +8,7 @@ import { Expander, Separator } from "../../widgets";
 import { connectDropdown } from "./Dropdown";
 
 const mpris = Mpris.get_default();
+const MARQUEE_LENGTH = 30;
 
 interface MprisStatus {
   status: Mpris.PlaybackStatus;
@@ -299,24 +300,85 @@ export default function Media({ monitor }: MediaProps) {
           hasIcon(e) ? e : "audio-x-generic-symbolic",
         );
 
+        const marqueeOffset = Variable(0).poll(100, (offset) => {
+          return offset + 1;
+        });
+
+        // show marquee for the first and last 10 seconds of a song
+        const showMarquee = Variable.derive(
+          [
+            bind(player, "length"),
+            bind(player, "position"),
+            bind(player, "playbackStatus"),
+          ],
+          (length, position, status) => {
+            if (status !== Mpris.PlaybackStatus.PLAYING) {
+              return false;
+            }
+            return position < 10 || length - position < 10;
+          },
+        );
+        showMarquee.subscribe((show) => {
+          if (show) {
+            marqueeOffset.poll(100, (offset) => {
+              return offset + 1;
+            });
+          } else {
+            marqueeOffset.stopPoll();
+          }
+        });
+        bind(player, "title").subscribe(() => marqueeOffset.set(0));
+
+        const marquee = Variable.derive(
+          [bind(player, "title"), bind(player, "artist"), bind(marqueeOffset)],
+          (title, artist, mo) => {
+            const line = `${title} - ${artist} `;
+            if (line.length <= MARQUEE_LENGTH) {
+              // center the text
+              return line
+                .padStart(20 + line.length / 2, " ")
+                .padEnd(MARQUEE_LENGTH, " ");
+            }
+            const offset = mo % line.length;
+            return (line + line).slice(offset, offset + MARQUEE_LENGTH);
+          },
+        );
+
         return (
           <>
             <image iconName={icon} />
-            <label label={bind(player, "position").as(formatTime)} />
-            <slider
-              cssClasses={["Slider"]}
-              hexpand
-              min={0}
-              max={bind(player, "length")}
-              onChangeValue={({ value }) => {
-                const player = activePlayer.get();
-                if (player) {
-                  player.position = value;
-                }
-              }}
-              value={bind(player, "position")}
-            />
-            <label label={bind(player, "length").as(formatTime)} />
+            <stack
+              visibleChildName={bind(showMarquee).as((show) =>
+                show ? "marquee" : "progress",
+              )}
+              transitionType={Gtk.StackTransitionType.CROSSFADE}
+              transitionDuration={200}
+            >
+              <box name={"progress"} spacing={10}>
+                <label label={bind(player, "position").as(formatTime)} />
+                <slider
+                  cssClasses={["Slider"]}
+                  hexpand
+                  min={0}
+                  max={bind(player, "length")}
+                  onChangeValue={({ value }) => {
+                    const player = activePlayer.get();
+                    if (player) {
+                      player.position = value;
+                    }
+                  }}
+                  value={bind(player, "position")}
+                />
+                <label label={bind(player, "length").as(formatTime)} />
+              </box>
+              <label
+                name={"marquee"}
+                label={bind(marquee)}
+                ellipsize={Pango.EllipsizeMode.END}
+                widthChars={MARQUEE_LENGTH}
+                maxWidthChars={MARQUEE_LENGTH}
+              />
+            </stack>
           </>
         );
       })}
