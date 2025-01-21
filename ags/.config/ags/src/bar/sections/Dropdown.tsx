@@ -61,7 +61,6 @@ export function connectDropdown(
     <window
       cssClasses={["DropdownWindow"]}
       gdkmonitor={gdkmonitor}
-      exclusivity={Astal.Exclusivity.EXCLUSIVE}
       layer={Astal.Layer.OVERLAY}
       anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.LEFT}
       application={App}

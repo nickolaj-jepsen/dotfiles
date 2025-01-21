@@ -1,130 +1,168 @@
 import Wp from "gi://AstalWp";
 import { Variable, bind } from "astal";
-import type { Subscribable } from "astal/binding";
-import type { Gdk } from "astal/gtk4";
+import type { Binding, Subscribable } from "astal/binding";
+import { Gtk, type Gdk } from "astal/gtk4";
 import { hasIcon } from "../../utils/gtk";
-import { FlowBox } from "../../widgets";
+import { Expander, FlowBox, Separator } from "../../widgets";
 import { connectDropdown } from "./Dropdown";
+import Pango from "gi://Pango?version=1.0";
+import { Box } from "astal/gtk4/widget";
 
-// class PlaybackEndpoints implements Subscribable {
-// 	#wp: Wp.Wp;
-// 	#endpoints: { [id: number]: Wp.Endpoint } = {};
-// 	#subscriptions = new Set<(v: Wp.Endpoint[]) => void>();
-// 	active: Variable<Wp.Endpoint | null> = new Variable(null);
-//
-// 	#update(endpoint: Wp.Endpoint) {
-// 		this.#endpoints[endpoint.id] = endpoint;
-// 		this.active.set(
-// 			Object.values(this.#endpoints).find((d) => d.isDefault) ?? null,
-// 		);
-// 		this.#notify();
-// 	}
-//
-// 	#connect(endpoint: Wp.Endpoint) {
-// 		endpoint.connect("default-changed", () => {
-// 			this.active.set(
-// 				Object.values(this.#endpoints).find((d) => d.isDefault) ?? null,
-// 			);
-// 		});
-// 	}
-//
-// 	constructor(wp: Wp.Wp) {
-// 		this.#wp = wp;
-//
-// 		for (const endpoint of wp.get_endpoints() ?? []) {
-// 			this.#update(endpoint);
-// 		}
-//
-// 		wp.connect("endpoint-added", (_, endpoint) => {
-// 			this.#update(endpoint);
-// 		});
-// 	}
-//
-// 	#notify() {
-// 		const result = this.get();
-// 		for (const sub of this.#subscriptions) {
-// 			sub(result);
-// 		}
-// 	}
-//
-// 	get() {
-// 		return Object.values(this.#endpoints);
-// 	}
-//
-// 	subscribe(callback: (v: Wp.Endpoint[]) => void) {
-// 		this.#subscriptions.add(callback);
-// 		return () => this.#subscriptions.delete(callback);
-// 	}
-// }
+interface PlaybackEndpointProps {
+  endpoint: Wp.Endpoint;
+  visible?: Binding<boolean>;
+}
 
-type EndpointOptions = {
-  fallbackIcon: string;
-};
+function PlaybackEndpoint({ endpoint, visible }: PlaybackEndpointProps) {
+  const name = Variable.derive(
+    [bind(endpoint, "description"), bind(endpoint, "name")],
+    (description, name) => name || description || "Unknown",
+  );
 
-function PlaybackDropdown({ audioDevices }: { audioDevices: Wp.Audio }) {
-  const speakers = bind(audioDevices, "speakers");
-  const microphones = bind(audioDevices, "microphones");
-
-  const renderEndpoint = (endpoint: Wp.Endpoint, options: EndpointOptions) => {
-    return (
-      <box spacing={5} vertical>
-        <box spacing={5}>
-          <button
-            label={"active"}
-            cssClasses={bind(endpoint, "isDefault").as((x) =>
-              x ? ["active"] : [],
-            )}
-            sensitive={false}
-          />
-        </box>
-        <box spacing={5}>
-          <image
-            iconName={bind(endpoint, "icon").as((icon) =>
-              hasIcon(icon) ? icon : options.fallbackIcon,
-            )}
-            pixelSize={12}
-          />
-          <label
-            label={bind(endpoint, "description")}
-            maxWidthChars={20}
-            wrap
-          />
-        </box>
-      </box>
-    );
-  };
-
-  const renderEndpoints = (
-    endpoints: Wp.Endpoint[],
-    options: EndpointOptions,
-  ) => {
-    return (
-      <FlowBox maxChildrenPerLine={3} homogeneous>
-        {endpoints.map((endpoint) => (
-          <box spacing={5}>{renderEndpoint(endpoint, options)}</box>
-        ))}
-      </FlowBox>
-    );
-  };
+  const defaultable = Variable.derive(
+    [bind(endpoint, "is_default"), bind(endpoint, "media_class")],
+    (isDefault, mediaClass) =>
+      !isDefault &&
+      [Wp.MediaClass.AUDIO_MICROPHONE, Wp.MediaClass.AUDIO_SPEAKER].includes(
+        mediaClass,
+      ),
+  );
 
   return (
-    <box spacing={10} vertical>
-      <box spacing={5} vertical>
-        <label label="Speakers" />
-        {bind(speakers).as((speakers) =>
-          renderEndpoints(speakers, {
-            fallbackIcon: "audio-speakers",
-          }),
-        )}
+    <box
+      vertical
+      spacing={5}
+      hexpand
+      onDestroy={() => {
+        name.drop();
+        defaultable.drop();
+      }}
+      visible={visible}
+    >
+      <box spacing={10} hexpand>
+        <button
+          onButtonPressed={() => {
+            endpoint.set_mute(!endpoint.mute);
+          }}
+        >
+          <image iconName={bind(endpoint, "volumeIcon")} pixelSize={16} />
+        </button>
+        <label
+          label={bind(name)}
+          maxWidthChars={bind(defaultable).as((x) => (x ? 23 : 28))}
+          ellipsize={Pango.EllipsizeMode.END}
+          halign={Gtk.Align.START}
+          hexpand
+        />
+        <button
+          visible={bind(defaultable)}
+          onButtonPressed={() => {
+            endpoint.set_is_default(true);
+          }}
+        >
+          <image iconName="star-filled" pixelSize={20} />
+        </button>
       </box>
-      <box spacing={5} vertical>
-        <label label="Microphones" />
-        {bind(microphones).as((microphones) =>
-          renderEndpoints(microphones, {
-            fallbackIcon: "audio-input-microphone",
-          }),
-        )}
+      <box spacing={5} hexpand>
+        <slider
+          cssClasses={["Slider"]}
+          hexpand
+          value={bind(endpoint, "volume")}
+          onChangeValue={({ value }) => {
+            endpoint.set_volume(value);
+          }}
+        />
+        <label
+          label={bind(endpoint, "volume").as((v) =>
+            `${Math.floor(v * 100)}%`.padStart(4, " "),
+          )}
+        />
       </box>
+    </box>
+  );
+}
+
+function PlaybackDropdown({ audioDevices }: { audioDevices: Wp.Audio }) {
+  return (
+    <box
+      spacing={10}
+      vertical
+      widthRequest={300}
+      cssClasses={["PlaybackDropdown"]}
+    >
+      <label label="Default Speaker" halign={Gtk.Align.START} />
+      {bind(audioDevices, "default_speaker").as((speaker) => {
+        return <PlaybackEndpoint endpoint={speaker} />;
+      })}
+      <Expander
+        label={"All Speakers"}
+        visible={bind(audioDevices, "speakers").as(
+          (speakers) => speakers.length > 1,
+        )}
+      >
+        <Box spacing={5} vertical marginTop={10}>
+          {bind(audioDevices, "speakers").as((speakers) => {
+            return speakers.map((speaker) => (
+              <PlaybackEndpoint
+                endpoint={speaker}
+                visible={bind(speaker, "is_default").as((x) => !x)}
+              />
+            ));
+          })}
+        </Box>
+      </Expander>
+      <Separator />
+      <label label="Playback streams" halign={Gtk.Align.START} />
+      {bind(audioDevices, "streams").as((streams) => {
+        if (streams.length === 0) {
+          return (
+            <label
+              label="No playback streams"
+              halign={Gtk.Align.START}
+              cssClasses={["no-streams"]}
+            />
+          );
+        }
+
+        return streams.map((stream) => <PlaybackEndpoint endpoint={stream} />);
+      })}
+      <Separator />
+      <label label="Default Microphone" halign={Gtk.Align.START} />
+      {bind(audioDevices, "default_microphone").as((microphone) => {
+        return <PlaybackEndpoint endpoint={microphone} />;
+      })}
+      <Expander
+        label={"All Microphones"}
+        visible={bind(audioDevices, "microphones").as(
+          (microphones) => microphones.length > 1,
+        )}
+      >
+        <Box spacing={5} vertical marginTop={10}>
+          {bind(audioDevices, "microphones").as((microphones) => {
+            return microphones.map((microphone) => (
+              <PlaybackEndpoint
+                endpoint={microphone}
+                visible={bind(microphone, "is_default").as((x) => !x)}
+              />
+            ));
+          })}
+        </Box>
+      </Expander>
+      <Separator />
+      <label label="Recording streams" halign={Gtk.Align.START} />
+      {bind(audioDevices, "recorders").as((streams) => {
+        if (streams.length === 0) {
+          return (
+            <label
+              label="No recording streams"
+              halign={Gtk.Align.START}
+              cssClasses={["no-streams"]}
+            />
+          );
+        }
+
+        return streams.map((stream) => <PlaybackEndpoint endpoint={stream} />);
+      })}
     </box>
   );
 }
@@ -144,10 +182,13 @@ export function Playback({ monitor }: { monitor: Gdk.Monitor }) {
       return m ? 0 : v;
     },
   );
+  const recording = bind(audioDevices, "recorders").as(
+    (recorders) => recorders.length > 0,
+  );
 
   return (
     <box
-      cssClasses={["PlaybackControl"]}
+      cssClasses={["Playback"]}
       spacing={15}
       onDestroy={() => {
         volume.drop();
@@ -191,6 +232,14 @@ export function Playback({ monitor }: { monitor: Gdk.Monitor }) {
                 label={bind(volume).as((v) =>
                   `${Math.floor(v * 100)}%`.padStart(4, " "),
                 )}
+              />
+              <image
+                iconName={"microphone-custom"}
+                cssClasses={["recording"]}
+                pixelSize={16}
+                widthRequest={18}
+                hexpand
+                visible={bind(recording)}
               />
             </box>
           </>
