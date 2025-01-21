@@ -1,5 +1,5 @@
 import { type Binding, Variable, bind } from "astal";
-import { App, Astal, type Gdk, Gtk } from "astal/gtk4";
+import { App, Astal, type Gdk, Gtk, hook } from "astal/gtk4";
 import { cancelTimeout, cancelableTimeout } from "../../utils/timeout";
 
 const ANIMATION_DURATION = 500;
@@ -69,6 +69,13 @@ export function connectDropdown(
         transitionDuration={ANIMATION_DURATION}
         transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
         valign={Gtk.Align.START}
+        setup={(self) => {
+          bind(self, "child_revealed").subscribe(is_revealed => {
+			if (!is_revealed) {
+					dropdown.hide();
+			}
+		  });
+		}}
       >
         {box}
       </revealer>
@@ -77,18 +84,10 @@ export function connectDropdown(
 
   isHovering.subscribe((hovering) => {
     if (hovering) {
-      cancelTimeout("hideDropdown");
       dropdown.show();
       (dropdown.get_first_child() as Gtk.Revealer).set_reveal_child(true);
     } else {
       (dropdown.get_first_child() as Gtk.Revealer).set_reveal_child(false);
-      cancelableTimeout(
-        () => {
-          dropdown.hide();
-        },
-        "hideDropdown",
-        ANIMATION_DURATION - 50,
-      );
     }
   });
 
