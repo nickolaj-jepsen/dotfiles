@@ -43,10 +43,18 @@
 }
 
 .SysTray {
-  .popup menuitem {
-    background-color: $bg;
+  button {
+    all: unset;
+    &:hover {
+      all: unset;
+    }
   }
-  .popup menuitem:hover {
+  
+  .menu, modelbutton {
+    background-color: $bg;
+    transition: background-color $transition;
+  }
+  modelbutton:hover {
     background-color: $bg-alt;
   }
 }
