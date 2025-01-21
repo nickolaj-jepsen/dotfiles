@@ -1,9 +1,9 @@
 {
-	"name": "astal-shell",
-	"dependencies": {
-		"astal": "/usr/share/astal/gjs"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "1.9.4"
-	}
+  "name": "astal-shell",
+  "dependencies": {
+    "astal": "/usr/share/astal/gjs"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4"
+  }
 }
