@@ -1,0 +1,153 @@
+app_launch_prefix: "uwsm app -- "
+terminal_title_flag: ""
+locale: ""
+close_when_open: true
+theme: fireproof
+timeout: 0
+disable_click_to_close: false
+force_keyboard_focus: false
+disabled:
+  - xdph_picker
+  - bookmark
+  - translation
+keys:
+  accept_typeahead:
+    - tab
+  trigger_labels: lalt
+  next:
+    - down
+  prev:
+    - up
+  close:
+    - esc
+    - ctrl c
+    - ctrl backspace
+  remove_from_history:
+    - shift backspace
+  resume_query:
+    - ctrl r
+  toggle_exact_search:
+    - ctrl m
+  activation_modifiers:
+    keep_open: shift
+    alternate: alt
+  ai:
+    clear_session:
+      - ctrl x
+    copy_last_response:
+      - ctrl c
+    resume_session:
+      - ctrl r
+    run_last_response:
+      - ctrl e
+list:
+  max_entries: 50
+  show_initial_entries: true
+  single_click: true
+  visibility_threshold: 20
+  placeholder: No Results
+search:
+  placeholder: Search...
+activation_mode:
+  labels: jklæasdf
+builtins:
+  applications:
+    weight: 20
+    history: true
+    actions:
+      enabled: false
+  calc:
+    require_number: true
+    name: calc
+    icon: accessories-calculator
+    placeholder: Calculator
+    min_chars: 4
+  windows:
+    switcher_only: true
+  clipboard:
+    always_put_new_on_top: true
+    exec: wl-copy
+    name: clipboard
+    avoid_line_breaks: true
+    placeholder: Clipboard
+    image_height: 300
+    max_entries: 10
+    switcher_only: true
+  commands:
+    icon: utilities-terminal
+    switcher_only: true
+    name: commands
+    placeholder: Commands
+  custom_commands:
+    switcher_only: true
+    icon: utilities-terminal
+    name: custom_commands
+    placeholder: Custom Commands
+  emojis:
+    exec: wl-copy
+    name: emojis
+    placeholder: Emojis
+    switcher_only: true
+    history: true
+    typeahead: true
+    show_unqualified: false
+  symbols:
+    after_copy: ""
+    name: symbols
+    placeholder: Symbols
+    switcher_only: true
+    history: true
+    typeahead: true
+  finder:
+    use_fd: false
+    icon: file
+    name: finder
+    placeholder: Finder
+    switcher_only: true
+    ignore_gitignore: true
+    refresh: true
+    concurrency: 8
+    show_icon_when_single: true
+    preview_images: false
+  runner:
+    eager_loading: true
+    icon: utilities-terminal
+    name: runner
+    placeholder: Runner
+    typeahead: true
+    history: true
+    generic_entry: false
+    refresh: true
+    use_fd: false
+  ssh:
+    icon: preferences-system-network
+    name: ssh
+    placeholder: SSH
+    switcher_only: true
+    history: true
+    refresh: true
+  switcher:
+    name: switcher
+    placeholder: Switcher
+    prefix: /
+  websearch:
+    icon: applications-internet
+    name: websearch
+    placeholder: Websearch
+    entries:
+      - name: Google
+        url: https://www.google.com/search?q=%TERM%
+      - name: DuckDuckGo
+        url: https://duckduckgo.com/?q=%TERM%
+        switcher_only: true
+      - name: Ecosia
+        url: https://www.ecosia.org/search?q=%TERM%
+        switcher_only: true
+      - name: Yandex
+        url: https://yandex.com/search/?text=%TERM%
+        switcher_only: true
+  dmenu:
+    hidden: true
+    name: dmenu
+    placeholder: Dmenu
+    switcher_only: true
