@@ -1,5 +1,4 @@
 fish_add_path ~/.config/panel
-fish_add_path ~/bin
 fish_add_path ~/Development/devenv/bin  # billigvvs home development env
 fish_add_path /home/nij/src/devenv/bin  # billigvvs dev server development env
 fish_add_path /var/lib/snapd/snap/bin

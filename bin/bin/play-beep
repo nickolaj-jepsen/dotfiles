@@ -1,2 +1,0 @@
-#!/bin/sh
-aplay -q /home/nickolaj/bin/assets/beep.wav
