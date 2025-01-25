@@ -1,50 +1,45 @@
-set -gx theme_date_timezone Europe/Copenhagen
-set -gx theme_date_format "+%a %H:%M"
+# Colorscheme: use terminal colors
+set -U fish_color_normal normal
+set -U fish_color_command blue
+set -U fish_color_quote yellow
+set -U fish_color_redirection cyan --bold
+set -U fish_color_end green
+set -U fish_color_error brred
+set -U fish_color_param cyan
+set -U fish_color_comment red
+set -U fish_color_match --background=brblue
+set -U fish_color_selection white --bold --background=brblack
+set -U fish_color_search_match bryellow --background=brblack
+set -U fish_color_history_current --bold
+set -U fish_color_operator brcyan
+set -U fish_color_escape brcyan
+set -U fish_color_cwd green
+set -U fish_color_cwd_root red
+set -U fish_color_valid_path --underline
+set -U fish_color_autosuggestion brblack
+set -U fish_color_user brgreen
+set -U fish_color_host normal
+set -U fish_color_cancel --reverse
+set -U fish_pager_color_prefix normal --bold --underline
+set -U fish_pager_color_progress brwhite --background=cyan
+set -U fish_pager_color_completion normal
+set -U fish_pager_color_description yellow --italics
+set -U fish_pager_color_selected_background --reverse
+set -U fish_pager_color_selected_description 
+set -U fish_pager_color_selected_completion 
+set -U fish_pager_color_secondary_completion 
+set -U fish_pager_color_secondary_background 
+set -U fish_color_keyword 
+set -U fish_pager_color_selected_prefix 
+set -U fish_pager_color_background 
+set -U fish_pager_color_secondary_prefix 
+set -U fish_pager_color_secondary_description 
+set -U fish_color_host_remote 
+set -U fish_color_option
 
-# Should be converted to standard terminal colors, but currently they are aweful :(
-set -gx fish_color_autosuggestion brblack
-set -gx fish_color_comment red
-set -gx fish_color_end 009900
-set -gx fish_color_error ff0000
-set -gx fish_color_escape 00a6b2
-set -gx fish_color_operator 00a6b2
-set -gx fish_color_param 00afff
-set -gx fish_color_quote 999900
-set -gx fish_color_redirection 00afff
-
-function bobthefish_colors -S -d 'Define a custom bobthefish color scheme'
-
-  # Optionally include a base color scheme
-  # __bobthefish_colors default
-
-  # Then override everything you want!
-  # Note that these must be defined with `set -x`
-  set -x color_initial_segment_exit     white red --bold
-  set -x color_initial_segment_su       white green --bold
-  set -x color_initial_segment_jobs     white blue --bold
-
-  set -x color_path                     161616 888
-  set -x color_path_basename            161616 white
-  set -x color_path_nowrite             magenta black
-  set -x color_path_nowrite_basename    magenta black --bold
-
-  set -x color_repo                     green black
-  set -x color_repo_work_tree           black black --bold
-  set -x color_repo_dirty               brred black
-  set -x color_repo_staged              yellow black
-
-  set -x color_vi_mode_default          brblue black --bold
-  set -x color_vi_mode_insert           brgreen black --bold
-  set -x color_vi_mode_visual           bryellow black --bold
-
-  set -x color_vagrant                  brcyan black
-  set -x color_k8s                      magenta white --bold
-  set -x color_username                 black white --bold
-  set -x color_hostname                 black white
-  set -x color_rvm                      brmagenta black --bold
-  set -x color_virtualfish              brblue black --bold
-  set -x color_virtualgo                brblue black --bold
-  set -x color_desk                     brblue black --bold
-  set -g theme_display_nix              yes
-end
-
+# Bobthefish config
+set -g theme_date_timezone Europe/Copenhagen
+set -g theme_date_format "+%a %H:%M"
+set -g theme_nerd_fonts yes
+set -g theme_color_scheme terminal
+set -g theme_display_user ssh

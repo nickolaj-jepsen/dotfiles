@@ -1,25 +1,11 @@
-/* 
-$bg: #1c1c1c;
-$bg-alt: #333333;
-$fg: #c5c5c5;
-$fg-alt: #919191;
-$muted: #5a5a5a;
-$accent: #cf6a4c;
-$error: red;
 
-$radius: 8px;
-$transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-
-$font-large: 14px;
-$icon-size: 12px;
-*/
-@define-color fg #c5c5c5;
-@define-color fg-alt #919191;
-@define-color bg #1c1c1c;
-@define-color bg-alt #333333;
-@define-color accent #cf6a4c;
-@define-color muted #5a5a5a;
-@define-color error red;
+@define-color fg #DAD8CE;
+@define-color fg-alt #B7B5AC;
+@define-color bg #1C1B1A;
+@define-color bg-alt #282726;
+@define-color accent #CF6A4C;
+@define-color muted #878580;
+@define-color error #D14D41;
 
 #window,
 #box,
