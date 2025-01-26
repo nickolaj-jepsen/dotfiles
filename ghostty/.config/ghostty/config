@@ -1,0 +1,7 @@
+window-decoration = false
+theme = fireproof
+
+font-family = Hack Nerd Font
+window-inherit-font-size = false
+font-size = 11
+

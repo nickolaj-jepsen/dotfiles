@@ -1,0 +1,3 @@
+setup:
+    sudo pacman -S --noconfirm --needed ghostty 
+    stow --ignore="justfile" -t ~ . 

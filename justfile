@@ -1,7 +1,7 @@
 mod hyprland
 mod ags
 mod walker
-mod kitty
+mod ghostty
 mod fish
 
 default:
@@ -15,8 +15,8 @@ setup:
     just ags::setup
     @echo "{{BOLD + GREEN}}Setting up walker...{{NORMAL}}"
     just walker::setup
-    @echo "{{BOLD + GREEN}}Setting up kitty...{{NORMAL}}"
-    just kitty::setup
+    @echo "{{BOLD + GREEN}}Setting up ghostty...{{NORMAL}}"
+    just ghostty::setup
     @echo "{{BOLD + GREEN}}Setting up fish...{{NORMAL}}"
     just fish::setup
     @echo "{{BOLD + GREEN}}Done!{{NORMAL}}"
