@@ -1,0 +1,12 @@
+aur-packages := "uwsm"
+wayland-packages := "ly pipewire wireplumber"
+hyprland-packages := "hyprland hyprpaper hyprpolkitagent xdg-desktop-portal-hyprland"
+
+_install-packages:
+    sudo pacman -S --noconfirm --needed {{wayland-packages}} {{hyprland-packages}}
+    yay -S --noconfirm --needed {{aur-packages}}
+
+setup: _install-packages
+    stow --ignore="justfile" -t ~ . 
+    systemctl --user enable --now hyprpolkitagent.service
+    sudo systemctl enable ly.service

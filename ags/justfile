@@ -1,0 +1,3 @@
+setup:
+    yay -S --noconfirm --needed libastal-meta aylurs-gtk-shell
+    stow --ignore="justfile" -t ~ . 

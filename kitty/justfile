@@ -1,0 +1,3 @@
+setup:
+    sudo pacman -S --noconfirm --needed kitty
+    stow --ignore="justfile" -t ~ . 

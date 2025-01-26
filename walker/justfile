@@ -1,0 +1,3 @@
+setup:
+    yay -S --noconfirm --needed walker-bin
+    stow --ignore="justfile" -t ~ . 
