@@ -1,6 +1,6 @@
 aur-packages := "uwsm"
 wayland-packages := "ly pipewire wireplumber"
-hyprland-packages := "hyprland hyprpaper hyprpolkitagent xdg-desktop-portal-hyprland"
+hyprland-packages := "hyprland hyprpaper hyprpolkitagent xdg-desktop-portal-hyprland hyprlock hypridle"
 
 _install-packages:
     sudo pacman -S --noconfirm --needed {{wayland-packages}} {{hyprland-packages}}
@@ -11,4 +11,5 @@ setup: _install-packages
     cp ./hyprpaper.service $HOME/.config/systemd/user/hyprpaper.service
     systemctl --user enable hyprpaper.service
     systemctl --user enable hyprpolkitagent.service
+    systemctl --user enable hypridle.service
     sudo systemctl enable ly.service
