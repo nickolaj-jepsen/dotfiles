@@ -1,4 +1,4 @@
 setup:
     sudo pacman -S --noconfirm --needed fish fisher
-    stow --ignore="justfile" -t ~ . 
+    stow -t ~/.config .config
     fish -c "fisher update"

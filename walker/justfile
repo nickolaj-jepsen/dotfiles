@@ -1,3 +1,5 @@
 setup:
     yay -S --noconfirm --needed walker-bin
-    stow --ignore="justfile" -t ~ . 
+    stow -t ~/.config .config
+    cp ./walker.service $HOME/.config/systemd/user/walker.service
+    systemctl --user enable walker.service

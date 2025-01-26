@@ -1,0 +1,5 @@
+setup:
+    yay -S --noconfirm --needed libastal-meta aylurs-gtk-shell
+    stow -t ~/.config .config
+    cp ./astal.service $HOME/.config/systemd/user/astal.service
+    systemctl --user enable astal.service

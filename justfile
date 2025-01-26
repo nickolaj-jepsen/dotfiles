@@ -1,5 +1,5 @@
 mod hyprland
-mod ags
+mod astal
 mod walker
 mod ghostty
 mod fish
@@ -11,8 +11,8 @@ setup:
     # just doesn't support module dependencies, so we have to call it manually
     @echo "{{BOLD + GREEN}}Setting up hyprland...{{NORMAL}}"
     just hyprland::setup
-    @echo "{{BOLD + GREEN}}Setting up ags...{{NORMAL}}"
-    just ags::setup
+    @echo "{{BOLD + GREEN}}Setting up astal...{{NORMAL}}"
+    just astal::setup
     @echo "{{BOLD + GREEN}}Setting up walker...{{NORMAL}}"
     just walker::setup
     @echo "{{BOLD + GREEN}}Setting up ghostty...{{NORMAL}}"
